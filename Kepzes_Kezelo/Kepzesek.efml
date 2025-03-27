@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<efcore context-namespace="cnKepzesek" p1:name="KepzesekTabla" p1:Guid="366171c2-e839-4f11-8493-e03e79423dd8" xmlns:p1="http://devart.com/schemas/EntityDeveloper/1.0">
+  <class name="cnKepzesek.Kepzes" entity-set="Kepzesek" table="Kepzesek" p1:Guid="fe4694fd-2e45-4fd9-8bed-ce1361228c2a">
+    <id name="ID" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="0ad3db35-cd57-4460-8dbe-209ab54058c8">
+      <column name="" />
+    </id>
+    <property name="Nev" type="String" p1:ValidateRequired="true" p1:Guid="a717c80a-6327-4ca4-b59c-de4a74c67bd7">
+      <column name="" />
+    </property>
+    <property name="KezdesDatuma" type="DateTime" p1:ValidateRequired="true" p1:Guid="f202a8e9-2a7f-4df8-9025-25f218829bef">
+      <column name="" />
+    </property>
+    <property name="BefejezesDatuma" type="DateTime" p1:ValidateRequired="true" p1:Guid="33d1900e-141b-4fc2-94c1-270e65ea67dc">
+      <column name="" />
+    </property>
+    <property name="Hely" type="String" p1:ValidateRequired="true" p1:Guid="dd3ddd5b-e146-4127-adef-8c65c29ec491">
+      <column name="" />
+    </property>
+  </class>
+  <class name="cnKepzesek.Oktato" entity-set="Oktatok" table="Oktatok" p1:Guid="fcb8161a-83fe-45f2-bdfa-53cc42137f65">
+    <id name="ID" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="c3c7f881-e4c2-4095-9239-c301842141f6">
+      <column name="" />
+    </id>
+    <property name="Nev" type="String" p1:ValidateRequired="true" p1:Guid="5e26c60c-24c9-4bd3-ad61-06549fed1ab0">
+      <column name="" />
+    </property>
+    <property name="Szakterulet" type="String" p1:ValidateRequired="true" p1:Guid="25a833de-4725-4d61-9ce3-edaadaf4d320">
+      <column name="" />
+    </property>
+  </class>
+  <class name="cnKepzesek.Resztvevo" entity-set="Resztvevok" table="Resztvevok" p1:Guid="bf62d9f0-b1cf-4184-975e-f848c5e429bd">
+    <id name="ID" type="Int32" value-generated="OnAdd" p1:ValidateRequired="true" p1:Guid="a802aa4b-7a2f-469a-8dfc-b4b47554c401">
+      <column name="" />
+    </id>
+    <property name="Nev" type="String" p1:ValidateRequired="true" p1:Guid="e65ef563-b7fc-426d-a637-3ec9a34f17f4">
+      <column name="" />
+    </property>
+    <property name="Beosztas" type="String" p1:ValidateRequired="true" p1:Guid="73e4aa10-5e28-4866-b1dc-0ad958171a29">
+      <column name="" />
+    </property>
+  </class>
+  <associations>
+    <association name="Kepzesek_Oktatok" cardinality="ManyToMany" p1:Guid="79352724-ece7-4b31-883b-a5aeea51ced5">
+      <end1 multiplicity="Many" name="Kepzesek" class="Oktato" relation-class="Kepzes" lazy="False" p1:Guid="07a74f01-c538-4874-9e42-ab18dddddf20">
+        <property name="ID" />
+      </end1>
+      <end2 multiplicity="Many" name="Oktatok" class="Kepzes" relation-class="Oktato" lazy="False" p1:Guid="a9fd0d40-4bcb-4f4f-99e7-e1a37cfc4df3">
+        <property name="ID" />
+      </end2>
+    </association>
+    <association name="Kepzesek_Resztvevok" cardinality="ManyToMany" p1:Guid="8dadc179-069b-43e9-9752-fe6b33cbd0cc">
+      <end1 multiplicity="Many" name="Kepzeseks" class="Resztvevo" relation-class="Kepzes" lazy="False" p1:Guid="1ff82766-7c91-4979-b03d-4f22b3759157">
+        <property name="ID" />
+      </end1>
+      <end2 multiplicity="Many" name="Resztvevoks" class="Kepzes" relation-class="Resztvevo" lazy="False" p1:Guid="60b54e16-31f9-478f-9ec1-439a6d1174a8">
+        <property name="ID" />
+      </end2>
+    </association>
+  </associations>
+</efcore>
