@@ -6,7 +6,19 @@
         xmlns:local="clr-namespace:Kepzes_Kezelo"
         mc:Ignorable="d"
         Title="Képzés Kezelő" Height="450" Width="800">
-    <Grid>
-
+    <Grid x:Name="asd">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Click="cAdd" Header="Hozzáadás"></MenuItem>
+            <MenuItem Click="cVisualize" Header="Megjelenítés"></MenuItem>
+            <MenuItem Click="cEdit" Header="Szerkeztés"></MenuItem>
+        </Menu>
+        <Grid Visibility="Hidden" x:Name="gAdd" Grid.Row="1"> </Grid>
+        <Grid Visibility="Hidden" x:Name="gVisualize" Grid.Row="1"></Grid>
+        <Grid Visibility="Hidden" x:Name="gEdit"  Grid.Row="1"></Grid>
     </Grid>
+    
 </Window>

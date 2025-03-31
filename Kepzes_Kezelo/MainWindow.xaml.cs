@@ -29,5 +29,26 @@ namespace Kepzes_Kezelo
 			
 			
 		}
+
+		private void cAdd(object sender, RoutedEventArgs e)
+		{
+			gAdd.Visibility = Visibility.Visible;
+			gVisualize.Visibility = Visibility.Collapsed;
+			gEdit.Visibility = Visibility.Collapsed;
+		}
+
+		private void cVisualize(object sender, RoutedEventArgs e)
+		{
+			gAdd.Visibility = Visibility.Collapsed;
+			gVisualize.Visibility = Visibility.Visible;
+			gEdit.Visibility = Visibility.Collapsed;
+		}
+
+		private void cEdit(object sender, RoutedEventArgs e)
+		{
+			gAdd.Visibility = Visibility.Collapsed;
+			gVisualize.Visibility = Visibility.Collapsed;
+			gEdit.Visibility = Visibility.Visible;
+		}
 	}
 }
