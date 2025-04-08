@@ -42,7 +42,8 @@ namespace Kepzes_Kezelo
 			gAdd.Visibility = Visibility.Collapsed;
 			gVisualize.Visibility = Visibility.Visible;
 			gEdit.Visibility = Visibility.Collapsed;
-		}
+            //dgMegjelen.ItemsSource = cnKepzesek.Include(p => p.Oktatók).Include(p => p.Résztvevők).ToList();
+        }
 
 		private void cEdit(object sender, RoutedEventArgs e)
 		{
@@ -50,5 +51,5 @@ namespace Kepzes_Kezelo
 			gVisualize.Visibility = Visibility.Collapsed;
 			gEdit.Visibility = Visibility.Visible;
 		}
-	}
+    }
 }
