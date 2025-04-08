@@ -23,11 +23,11 @@
 								Visibility="Collapsed" AutoGenerateColumns="True" 
 								ItemsSource="{Binding}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}" />
-                <DataGridTextColumn Header="Képzés neve" Binding="{Binding Nev}" />
-                <DataGridTextColumn Header="Kezdési dátum" Binding="{Binding KezdesDatuma}" />
-                <DataGridTextColumn Header="Befejezési dátum" Binding="{Binding BefejezesDatuma}" />
-                <DataGridTextColumn Header="Helyszín" Binding="{Binding Hely}" />
+                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Képzés neve" Binding="{Binding Nev}"/>
+                <DataGridTextColumn Header="Kezdési dátum" Binding="{Binding KezdesDatuma}"/>
+                <DataGridTextColumn Header="Befejezési dátum" Binding="{Binding BefejezesDatuma}"/>
+                <DataGridTextColumn Header="Helyszín" Binding="{Binding Hely}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
