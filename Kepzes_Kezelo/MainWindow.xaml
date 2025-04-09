@@ -12,29 +12,24 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem Header="Fájl">
-                <MenuItem Header="Kilépés" Click="cExit"/>
-            </MenuItem>
             <MenuItem Click="cAdd" Header="Hozzáadás"></MenuItem>
             <MenuItem Click="cVisualize" Header="Megjelenítés"></MenuItem>
             <MenuItem Click="cEdit" Header="Szerkeztés"></MenuItem>
         </Menu>
         <Grid Visibility="Hidden" x:Name="gAdd" Grid.Row="1"></Grid>
-        <Grid Visibility="Hidden" x:Name="gVisualize" Grid.Row="1"></Grid>
+        <Grid Visibility="Hidden" x:Name="gVisualize" Grid.Row="1">
+            <DataGrid x:Name="dgMegjelen" IsReadOnly="True" DockPanel.Dock="Top" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Képzés neve" Binding="{Binding Nev}"/>
+                    <DataGridTextColumn Header="Kezdési dátum" Binding="{Binding KezdesDatuma}"/>
+                    <DataGridTextColumn Header="Befejezési dátum" Binding="{Binding BefejezesDatuma}"/>
+                    <DataGridTextColumn Header="Helyszín" Binding="{Binding Hely}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
         <Grid Visibility="Hidden" x:Name="gEdit"  Grid.Row="1"></Grid>
-        <DataGrid x:Name="dgMegjelen" IsReadOnly="True" DockPanel.Dock="Top" 
-								Visibility="Collapsed" AutoGenerateColumns="True" 
-								ItemsSource="{Binding}">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-                <DataGridTextColumn Header="Képzés neve" Binding="{Binding Nev}"/>
-                <DataGridTextColumn Header="Kezdési dátum" Binding="{Binding KezdesDatuma}"/>
-                <DataGridTextColumn Header="Befejezési dátum" Binding="{Binding BefejezesDatuma}"/>
-                <DataGridTextColumn Header="Helyszín" Binding="{Binding Hely}"/>
-                <DataGridTextColumn Header="Oktató" Binding="{Binding Oktato}"/>
-                <DataGridTextColumn Header="Résztvevők" Binding="{Binding Resztvevok}"/>
-            </DataGrid.Columns>
-        </DataGrid>
+       
     </Grid>
 
 </Window>
