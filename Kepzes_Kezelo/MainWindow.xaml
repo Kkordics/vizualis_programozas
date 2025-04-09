@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
             <MenuItem Header="Fájl">
-                <MenuItem Header="Kilépés" Click="mi_KilépésClick"/>
+                <MenuItem Header="Kilépés" Click="cExit"/>
             </MenuItem>
             <MenuItem Click="cAdd" Header="Hozzáadás"></MenuItem>
             <MenuItem Click="cVisualize" Header="Megjelenítés"></MenuItem>
@@ -31,6 +31,8 @@
                 <DataGridTextColumn Header="Kezdési dátum" Binding="{Binding KezdesDatuma}"/>
                 <DataGridTextColumn Header="Befejezési dátum" Binding="{Binding BefejezesDatuma}"/>
                 <DataGridTextColumn Header="Helyszín" Binding="{Binding Hely}"/>
+                <DataGridTextColumn Header="Oktató" Binding="{Binding Oktato}"/>
+                <DataGridTextColumn Header="Résztvevők" Binding="{Binding Resztvevok}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

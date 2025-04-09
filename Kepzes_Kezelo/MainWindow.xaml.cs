@@ -52,7 +52,7 @@ namespace Kepzes_Kezelo
 			gEdit.Visibility = Visibility.Visible;
 		}
 
-        private void mi_KilépésClick(object sender, RoutedEventArgs e)
+        private void cExit(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
