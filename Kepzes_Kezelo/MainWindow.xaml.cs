@@ -49,7 +49,7 @@ namespace Kepzes_Kezelo
 		{
 			var k1 = new Kepzes { Hely = "Szeged", Nev = "ITBiz", BefejezesDatuma = DateTime.Now , KezdesDatuma = DateTime.Today};
 			var k2 = new Kepzes { Hely = "Pécs", Nev = "asd", BefejezesDatuma = DateTime.Now, KezdesDatuma = DateTime.Today };
-			var o1 = new Oktato { Kepzesek = [k1], Nev = "Saniy", Szakterulet = "Otthon" };
+			var o1 = new Oktato { Kepzesek = [k1], Nev = "Sanyi", Szakterulet = "Otthon" };
 
 			var r1 = new Resztvevo { Beosztas = "Kapu", Nev = "Péter", Kepzeseks = [k1, k2] };
 			var r2 = new Resztvevo { Beosztas = "Ajtó", Nev = "Sándor", Kepzeseks = [k1] };
@@ -74,6 +74,8 @@ namespace Kepzes_Kezelo
 			gAdd.Visibility = Visibility.Visible;
 			gVisualize.Visibility = Visibility.Collapsed;
 			gEdit.Visibility = Visibility.Collapsed;
+			cbOktatok.ItemsSource = tabla.Oktatok.Select(x => x.Nev).ToList();
+			cbResztvevo.ItemsSource = tabla.Resztvevok.Select(x => x.Nev).ToList();
 		}
 
 		private void cVisualize(object sender, RoutedEventArgs e)
@@ -82,10 +84,7 @@ namespace Kepzes_Kezelo
 			gVisualize.Visibility = Visibility.Visible;
 			gEdit.Visibility = Visibility.Collapsed;
             dgMegjelen.ItemsSource = tabla.Kepzesek.Include(p => p.Oktatok).Include(p => p.Resztvevoks).ToList();
-			//dgMegjelen.ItemsSource = tabla.Kepzesek.ToList();
-			//KepzesOktato
-			Trace.WriteLine("asd"+string.Join(", ", tabla.Kepzesek.ToList()));
-
+			
 		}
 
 		private void cEdit(object sender, RoutedEventArgs e)
@@ -94,5 +93,41 @@ namespace Kepzes_Kezelo
 			gVisualize.Visibility = Visibility.Collapsed;
 			gEdit.Visibility = Visibility.Visible;
 		}
-    }
+
+		private void ClickTodayStart(object sender, RoutedEventArgs e)
+		{
+			tbDateStart.Text = DateTime.Now.ToShortDateString();
+			
+		}
+
+		private void ClickTodayEnd(object sender, RoutedEventArgs e)
+		{
+			tbDateEnd.Text = DateTime.Now.ToShortDateString();
+		}
+
+		private void CliclSaveKepzesek(object sender, RoutedEventArgs e)
+		{
+			
+		}
+
+		private void ClickOktatoHozzaadasa(object sender, RoutedEventArgs e)
+		{
+			if(cbOktatok.SelectedItem != null)
+			{
+				cbHozzaadotOktatok.Items.Add(cbOktatok.SelectedItem.ToString());
+			}
+			
+			//cbHozzaadotOktatok.ItemsSource = 
+		}
+
+		private void ClickResztvevoHozzaadasa(object sender, RoutedEventArgs e)
+		{
+			if (cbResztvevo.SelectedItem != null)
+			{
+				cbHozzaadotResztvevok.Items.Add(cbResztvevo.SelectedItem.ToString());
+			}
+		}
+
+		
+	}
 }
