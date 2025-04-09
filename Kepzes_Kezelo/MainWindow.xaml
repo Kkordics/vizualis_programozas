@@ -12,6 +12,9 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
+            <MenuItem Header="Fájl">
+                <MenuItem Header="Kilépés" Click="mi_KilépésClick"/>
+            </MenuItem>
             <MenuItem Click="cAdd" Header="Hozzáadás"></MenuItem>
             <MenuItem Click="cVisualize" Header="Megjelenítés"></MenuItem>
             <MenuItem Click="cEdit" Header="Szerkeztés"></MenuItem>

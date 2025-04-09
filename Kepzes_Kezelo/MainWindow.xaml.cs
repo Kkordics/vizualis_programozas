@@ -51,5 +51,10 @@ namespace Kepzes_Kezelo
 			gVisualize.Visibility = Visibility.Collapsed;
 			gEdit.Visibility = Visibility.Visible;
 		}
+
+        private void mi_KilépésClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
     }
 }
