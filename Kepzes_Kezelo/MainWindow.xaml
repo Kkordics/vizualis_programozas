@@ -12,7 +12,13 @@
             <RowDefinition />
         </Grid.RowDefinitions>
         <Menu Grid.Row="0">
-            <MenuItem Click="cAdd" Header="Hozzáadás"></MenuItem>
+            <MenuItem Header="File">
+                <MenuItem Header="Exit"></MenuItem>
+                <MenuItem Header="Import"></MenuItem>
+                <MenuItem Header="Export"></MenuItem>
+            </MenuItem>
+            <MenuItem Click="cAdd" Header="Hozzáadás">
+            </MenuItem>
             <MenuItem Click="cVisualize" Header="Megjelenítés"></MenuItem>
             <MenuItem Click="cEdit" Header="Szerkeztés"></MenuItem>
         </Menu>
