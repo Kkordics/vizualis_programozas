@@ -107,7 +107,34 @@ namespace Kepzes_Kezelo
 
 		private void CliclSaveKepzesek(object sender, RoutedEventArgs e)
 		{
+			if(tbName.Text == "") { MessageBox.Show("Üres név", "Hiba", MessageBoxButton.OK); return; }
+			if(tbDateStart.Text == "") { MessageBox.Show("Üres dátum", "Hiba", MessageBoxButton.OK); return; }
+			if(tbDateEnd.Text == "") { MessageBox.Show("Üres dátum", "Hiba", MessageBoxButton.OK); return; }
+			if(tbPlace.Text == "") { MessageBox.Show("Üres hely", "Hiba", MessageBoxButton.OK); return; }
+
 			
+			//az oktató már létezik
+			if(tabla.Kepzesek.Any(x=> x.Nev == tbName.Text)) { MessageBox.Show("Létező név", "Hiba", MessageBoxButton.OK); return; }
+
+			if(DateTime.TryParse(tbDateStart.Text, out DateTime start) && DateTime.TryParse(tbDateEnd.Text, out DateTime end))
+			{
+				
+				List<Oktato> oktatok = tabla.Oktatok.ToList().Where(x=> cbHozzaadotOktatok.Items.Contains(x.Nev)).ToList();
+				List<Resztvevo> resztvevok = tabla.Resztvevok.ToList().Where(x=> cbHozzaadotResztvevok.Items.Contains(x.Nev)).ToList();
+
+				Kepzes newKepzes = new Kepzes { Nev = tbName.Text, KezdesDatuma = start, BefejezesDatuma = end, Hely = tbPlace.Text, Oktatok = oktatok, Resztvevoks = resztvevok};
+
+				tabla.Kepzesek.Add(newKepzes);
+				tabla.SaveChanges();
+				
+				MessageBox.Show("Mentés sikeres");
+				tbName.Text = "";
+				tbDateStart.Text = "";
+				tbDateEnd.Text = "";
+				tbPlace.Text = "";
+				cbHozzaadotOktatok.ItemsSource = null;
+				cbHozzaadotResztvevok.ItemsSource = null;
+			}
 		}
 
 		private void ClickOktatoHozzaadasa(object sender, RoutedEventArgs e)
@@ -115,15 +142,16 @@ namespace Kepzes_Kezelo
 			if(cbOktatok.SelectedItem != null)
 			{
 				cbHozzaadotOktatok.Items.Add(cbOktatok.SelectedItem.ToString());
+				cbHozzaadotOktatok.SelectedIndex = 0;
 			}
 			
-			//cbHozzaadotOktatok.ItemsSource = 
 		}
 
 		private void ClickResztvevoHozzaadasa(object sender, RoutedEventArgs e)
 		{
 			if (cbResztvevo.SelectedItem != null)
 			{
+				cbHozzaadotResztvevok.SelectedIndex = 0;
 				cbHozzaadotResztvevok.Items.Add(cbResztvevo.SelectedItem.ToString());
 			}
 		}
