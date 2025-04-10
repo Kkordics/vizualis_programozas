@@ -76,6 +76,7 @@ namespace Kepzes_Kezelo
 			gEdit.Visibility = Visibility.Collapsed;
 			cbOktatok.ItemsSource = tabla.Oktatok.Select(x => x.Nev).ToList();
 			cbResztvevo.ItemsSource = tabla.Resztvevok.Select(x => x.Nev).ToList();
+			cbSzakteruletResztvevok.ItemsSource = tabla.Resztvevok.Select(x => x.Nev).ToList();
 		}
 
 		private void cVisualize(object sender, RoutedEventArgs e)
@@ -97,12 +98,13 @@ namespace Kepzes_Kezelo
 		private void ClickTodayStart(object sender, RoutedEventArgs e)
 		{
 			tbDateStart.Text = DateTime.Now.ToShortDateString();
-			
+			tbDateStart.DataContext = DateTime.Now;
 		}
 
 		private void ClickTodayEnd(object sender, RoutedEventArgs e)
 		{
 			tbDateEnd.Text = DateTime.Now.ToShortDateString();
+			tbDateEnd.DataContext = DateTime.Now;
 		}
 
 		private void CliclSaveKepzesek(object sender, RoutedEventArgs e)
@@ -157,5 +159,13 @@ namespace Kepzes_Kezelo
 		}
 
 		
+		private void ClickKivalasztottRésztvevőkHozzaadasa(object sender, RoutedEventArgs e)
+		{
+			if (cbSzakteruletResztvevok.SelectedItem != null)
+			{
+				cbKivalasztottResztvevok.Items.Add(cbSzakteruletResztvevok.SelectedItem.ToString());
+				cbKivalasztottResztvevok.SelectedIndex = 0;
+			}
+		}
 	}
 }
