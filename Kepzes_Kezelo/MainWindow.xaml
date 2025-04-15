@@ -22,12 +22,14 @@
 			<MenuItem Click="cVisualize" Header="Megjelenítés"></MenuItem>
 			<MenuItem Click="cEdit" Header="Szerkeztés"></MenuItem>
 		</Menu>
+        <!-- Hozzáadás adblak -->
 		<Grid Visibility="Visible" x:Name="gAdd" Grid.Row="1">
 			<Grid.RowDefinitions>
 				<RowDefinition/>
 				<RowDefinition/>
 				<RowDefinition/>
 			</Grid.RowDefinitions>
+            <!-- Képzés hozzadása -->
 			<Label Grid.Row="0" Content="Kepzés" FontSize="30"></Label>
 			<Border BorderBrush="Black" BorderThickness="1">
 				<Grid Grid.Row="0">
@@ -37,14 +39,14 @@
 						<RowDefinition/>
 						<RowDefinition/>
 						<RowDefinition/>
-						<RowDefinition/>
-
-					</Grid.RowDefinitions>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 						<ColumnDefinition/>
 					</Grid.ColumnDefinitions>
+                    
 					<Label Grid.Row="0" Grid.Column="1" Content="Név:" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
 					<TextBox Grid.Row="0" Grid.Column="2" x:Name="tbName" VerticalAlignment="Center" ></TextBox>
 
@@ -84,8 +86,8 @@
 				</Grid>
 			</Border>
 
-
-			<Label Grid.Row="1" Content="Oktató" FontSize="30"></Label>
+            <!-- Oktatók hozzadása -->
+            <Label Grid.Row="1" Content="Oktató" FontSize="30"></Label>
 			<Border BorderBrush="Black" Grid.Row="1" BorderThickness="1">
 				<Grid>
 					<Grid.RowDefinitions>
@@ -109,7 +111,7 @@
 						<Button Grid.Column="1" Grid.Row="2" Click="ClickKivalasztottKepzesHozzaadasa" Content="Kiválasztott képzés hozzásadása" VerticalAlignment="Top" HorizontalAlignment="Center"></Button>
 					</StackPanel>
 					<ComboBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" x:Name="cbKepzesek" ItemsSource="{Binding}" ></ComboBox>
-
+	
 					<Label Grid.Row="2" Grid.Column="2" Content="Kiválasztott képzések:" ></Label>
 					<ComboBox IsReadOnly="True" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" x:Name="cbKivalasztottKepzes" ItemsSource="{Binding}" ></ComboBox>
 
@@ -117,13 +119,15 @@
 				</Grid>
 			</Border>
 
-			<Label Grid.Row="2" Content="Résztvevő" FontSize="30"></Label>
+            <!-- Résztvevők hozzadása -->
+            <Label Grid.Row="2" Content="Résztvevő" FontSize="30"></Label>
 			<Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
 				<Grid >
 
 				</Grid>
 			</Border>
 		</Grid>
+        <!-- Megjelenítés ablak -->
 		<Grid Visibility="Hidden" x:Name="gVisualize" Grid.Row="1">
 			<DataGrid x:Name="dgMegjelen" IsReadOnly="True" DockPanel.Dock="Top" AutoGenerateColumns="False" ItemsSource="{Binding}">
 				<DataGrid.Columns>
