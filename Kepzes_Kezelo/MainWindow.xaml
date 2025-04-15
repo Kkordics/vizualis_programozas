@@ -100,20 +100,20 @@
 					</Grid.ColumnDefinitions>
 
 					<Label Content="Név:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
-					<TextBox Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"></TextBox>
+					<TextBox Grid.Row="0" Grid.Column="2" x:Name="tbOktatoNev" VerticalAlignment="Center"></TextBox>
 
 					<Label Content="Szakterület:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
-					<TextBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"></TextBox>
+					<TextBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" x:Name="tbOktatoSzakterulet"></TextBox>
 					<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-						<Label Grid.Row="2" Grid.Column="1" Content="Résztvevők:"></Label>
-						<Button Grid.Column="1" Grid.Row="2" Click="ClickKivalasztottRésztvevőkHozzaadasa" Content="Kiválasztott résztvevők hozzásadása" VerticalAlignment="Top" HorizontalAlignment="Center"></Button>
+						<Label Grid.Row="2" Grid.Column="1" Content="Kepzesek:"></Label>
+						<Button Grid.Column="1" Grid.Row="2" Click="ClickKivalasztottKepzesHozzaadasa" Content="Kiválasztott képzés hozzásadása" VerticalAlignment="Top" HorizontalAlignment="Center"></Button>
 					</StackPanel>
-					<ComboBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" x:Name="cbSzakteruletResztvevok" ItemsSource="{Binding}" ></ComboBox>
+					<ComboBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" x:Name="cbKepzesek" ItemsSource="{Binding}" ></ComboBox>
 
-					<Label Grid.Row="2" Grid.Column="2" Content="Kiválasztott szakterületek:" ></Label>
-					<ComboBox IsReadOnly="True" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" x:Name="cbKivalasztottResztvevok" ItemsSource="{Binding}" ></ComboBox>
+					<Label Grid.Row="2" Grid.Column="2" Content="Kiválasztott képzések:" ></Label>
+					<ComboBox IsReadOnly="True" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" x:Name="cbKivalasztottKepzes" ItemsSource="{Binding}" ></ComboBox>
 
-					<Button Grid.Row="1" Content="Mentés"  ></Button>
+                    <Button Grid.Row="1" Background="#2ecc71" Height="60" FontWeight="Heavy"  Foreground="White" Content="Mentés" Click="ClickSaveOktato" ></Button>
 				</Grid>
 			</Border>
 

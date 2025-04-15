@@ -74,9 +74,17 @@ namespace Kepzes_Kezelo
 			gAdd.Visibility = Visibility.Visible;
 			gVisualize.Visibility = Visibility.Collapsed;
 			gEdit.Visibility = Visibility.Collapsed;
+			FillLists();
+		}
+
+		/// <summary>
+		/// Feltölti a Combo box-ok tartalmát az Add menünél
+		/// </summary>
+		private void FillLists()
+		{
 			cbOktatok.ItemsSource = tabla.Oktatok.Select(x => x.Nev).ToList();
 			cbResztvevo.ItemsSource = tabla.Resztvevok.Select(x => x.Nev).ToList();
-			cbSzakteruletResztvevok.ItemsSource = tabla.Resztvevok.Select(x => x.Nev).ToList();
+			cbKepzesek.ItemsSource = tabla.Kepzesek.Select(x => x.Nev).ToList();
 		}
 
 		private void cVisualize(object sender, RoutedEventArgs e)
@@ -109,14 +117,14 @@ namespace Kepzes_Kezelo
 
 		private void CliclSaveKepzesek(object sender, RoutedEventArgs e)
 		{
-			if(tbName.Text == "") { MessageBox.Show("Üres név", "Hiba", MessageBoxButton.OK); return; }
-			if(tbDateStart.Text == "") { MessageBox.Show("Üres dátum", "Hiba", MessageBoxButton.OK); return; }
-			if(tbDateEnd.Text == "") { MessageBox.Show("Üres dátum", "Hiba", MessageBoxButton.OK); return; }
-			if(tbPlace.Text == "") { MessageBox.Show("Üres hely", "Hiba", MessageBoxButton.OK); return; }
+			if(tbName.Text == "") { MessageBox.Show("Üres képzés név", "Hiba", MessageBoxButton.OK); return; }
+			if(tbDateStart.Text == "") { MessageBox.Show("Üres képzés dátum", "Hiba", MessageBoxButton.OK); return; }
+			if(tbDateEnd.Text == "") { MessageBox.Show("Üres képzés dátum", "Hiba", MessageBoxButton.OK); return; }
+			if(tbPlace.Text == "") { MessageBox.Show("Üres képzés hely", "Hiba", MessageBoxButton.OK); return; }
 
 			
 			//az oktató már létezik
-			if(tabla.Kepzesek.Any(x=> x.Nev == tbName.Text)) { MessageBox.Show("Létező név", "Hiba", MessageBoxButton.OK); return; }
+			if(tabla.Kepzesek.Any(x=> x.Nev == tbName.Text)) { MessageBox.Show("Létező képzés név", "Hiba", MessageBoxButton.OK); return; }
 
 			if(DateTime.TryParse(tbDateStart.Text, out DateTime start) && DateTime.TryParse(tbDateEnd.Text, out DateTime end))
 			{
@@ -130,6 +138,7 @@ namespace Kepzes_Kezelo
 				tabla.SaveChanges();
 				
 				MessageBox.Show("Mentés sikeres");
+				FillLists();
 				tbName.Text = "";
 				tbDateStart.Text = "";
 				tbDateEnd.Text = "";
@@ -159,12 +168,33 @@ namespace Kepzes_Kezelo
 		}
 
 		
-		private void ClickKivalasztottRésztvevőkHozzaadasa(object sender, RoutedEventArgs e)
+
+		private void ClickSaveOktato(object sender, RoutedEventArgs e)
 		{
-			if (cbSzakteruletResztvevok.SelectedItem != null)
+			if(tbOktatoNev.Text == "") { MessageBox.Show("Üres oktató név", "Huba", MessageBoxButton.OK); return; }
+			if (tbOktatoSzakterulet.Text == "") { MessageBox.Show("Üres oktató szakterület", "Huba", MessageBoxButton.OK); return; }
+
+			List<Kepzes> kepzesek = tabla.Kepzesek.ToList().Where(x => cbKivalasztottKepzes.Items.Contains(x.Nev)).ToList();
+
+			Oktato newOktato = new Oktato { Nev = tbOktatoNev.Text, Szakterulet = tbOktatoSzakterulet.Text, Kepzesek = kepzesek };
+
+			tabla.Oktatok.Add(newOktato);
+			tabla.SaveChanges();
+
+			MessageBox.Show("Mentés sikeres");
+			FillLists();
+			tbOktatoNev.Text = "";
+			tbOktatoSzakterulet.Text = "";
+			cbKivalasztottKepzes.ItemsSource = null;
+			
+		}
+
+		private void ClickKivalasztottKepzesHozzaadasa(object sender, RoutedEventArgs e)
+		{
+			if (cbKepzesek.SelectedItem != null)
 			{
-				cbKivalasztottResztvevok.Items.Add(cbSzakteruletResztvevok.SelectedItem.ToString());
-				cbKivalasztottResztvevok.SelectedIndex = 0;
+				cbKivalasztottKepzes.Items.Add(cbKepzesek.SelectedItem.ToString());
+				cbKivalasztottKepzes.SelectedIndex = 0;
 			}
 		}
 	}
