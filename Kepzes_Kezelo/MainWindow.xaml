@@ -6,141 +6,166 @@
         xmlns:local="clr-namespace:Kepzes_Kezelo"
         mc:Ignorable="d"
         Title="Képzés Kezelő" WindowState="Maximized" WindowStyle="SingleBorderWindow" Height="1080" Width="1920">
-	<Grid x:Name="asd">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="auto"/>
-			<RowDefinition />
-		</Grid.RowDefinitions>
-		<Menu Grid.Row="0">
-			<MenuItem Header="File">
-				<MenuItem Header="Exit"></MenuItem>
-				<MenuItem Header="Import"></MenuItem>
-				<MenuItem Header="Export"></MenuItem>
-			</MenuItem>
-			<MenuItem Click="cAdd" Header="Hozzáadás">
-			</MenuItem>
-			<MenuItem Click="cVisualize" Header="Megjelenítés"></MenuItem>
-			<MenuItem Click="cEdit" Header="Szerkeztés"></MenuItem>
-		</Menu>
-        <!-- Hozzáadás adblak -->
-		<Grid Visibility="Visible" x:Name="gAdd" Grid.Row="1">
-			<Grid.RowDefinitions>
-				<RowDefinition/>
-				<RowDefinition/>
-				<RowDefinition/>
-			</Grid.RowDefinitions>
-            <!-- Képzés hozzadása -->
-			<Label Grid.Row="0" Content="Kepzés" FontSize="30"></Label>
-			<Border BorderBrush="Black" BorderThickness="1">
-				<Grid Grid.Row="0">
-					<Grid.RowDefinitions>
-						<RowDefinition/>
-						<RowDefinition/>
-						<RowDefinition/>
-						<RowDefinition/>
-						<RowDefinition/>
+    <Grid x:Name="asd">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0">
+            <MenuItem Header="File">
+                <MenuItem Header="Exit"></MenuItem>
+                <MenuItem Header="Import"></MenuItem>
+                <MenuItem Header="Export"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Hozzáadás">
+                <MenuItem Click="cAddKepzes" Header="Képzés"/>
+                <MenuItem Click="cAddOktato" Header="Oktató"/>
+                <MenuItem Click="cAddResztvevo" Header="Résztvevő"/>
+            </MenuItem>
+            <MenuItem Click="cVisualize" Header="Megjelenítés"></MenuItem>
+            <MenuItem Click="cEdit" Header="Szerkeztés"></MenuItem>
+            <MenuItem Header="Keresés">
+                <MenuItem Header="Kepzes"></MenuItem>
+                <MenuItem Header="Oktató"></MenuItem>
+                <MenuItem Header="Kepzés"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <!-- Képzés hozzadása -->
+        <Grid Visibility="Collapsed" x:Name="gAddKepzes" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Content="Kepzés" FontSize="30"></Label>
+            <Label Grid.Row="0" Grid.Column="1" Content="Név:" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+            <TextBox Grid.Row="0" Grid.Column="2" x:Name="tbName" VerticalAlignment="Center" ></TextBox>
+
+            <Label Grid.Row="1" Grid.Column="1" Content="Kezdés Dátuma:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0"></Label>
+            <Button Grid.Column="1" Grid.Row="1"  Click="ClickTodayStart" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" Content="Ma" Background="#3498db" Foreground="White"></Button>
+            <DatePicker Grid.Row="1" x:Name="tbDateStart" Grid.Column="2" VerticalAlignment="Center"></DatePicker>
+
+            <Label Grid.Row="2" Grid.Column="1" Content="Befejezés Dátuma:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0"></Label>
+            <Button  Grid.Row="2" Grid.Column="1"   Click="ClickTodayEnd" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" Content="Ma" Background="#3498db" Foreground="White"></Button>
+            <DatePicker ToolTip="2025.04.09" Grid.Row="2" Grid.Column="2" x:Name="tbDateEnd" VerticalAlignment="Center" ></DatePicker>
+
+            <Label Grid.Row="3" Grid.Column="1" Content="Hely:" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+            <TextBox Grid.Row="3" ToolTip="2025.04.09" Grid.Column="2" x:Name="tbPlace" VerticalAlignment="Center" ></TextBox>
+
+            <Label Grid.Row="4" Grid.Column="2" Content="Hozáadott oktatók" VerticalAlignment="Top" HorizontalAlignment="Center"></Label>
+            <ComboBox Grid.Row="4" Grid.Column="2"  x:Name="cbHozzaadotOktatok"  VerticalAlignment="Bottom" ItemsSource="{Binding}" ></ComboBox>
+
+
+            <StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
+                <Label Content="Oktatók hozzá adása: " VerticalAlignment="Top"></Label>
+                <Button Click="ClickOktatoHozzaadasa" Content="Kiválasztott oktató hozzáadása" VerticalAlignment="Top"  ></Button>
+            </StackPanel>
+            <ComboBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" x:Name="cbOktatok" ItemsSource="{Binding}"></ComboBox>
+
+            <Label Grid.Row="5" Grid.Column="2" Content="Hozáadott résztvevők" VerticalAlignment="Top" HorizontalAlignment="Center"></Label>
+            <ComboBox Grid.Row="5" Grid.Column="2"  x:Name="cbHozzaadotResztvevok"  VerticalAlignment="Bottom" ItemsSource="{Binding}"></ComboBox>
+
+            <StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
+                <Label Content="Résztvevők hozzá adása: " VerticalAlignment="Top"></Label>
+                <Button Click="ClickResztvevoHozzaadasa" Content="Kiválasztott résztvevő hozzáadása" VerticalAlignment="Top"  ></Button>
+            </StackPanel>
+            <ComboBox Grid.Row="5" Grid.Column="1" VerticalAlignment="Bottom" x:Name="cbResztvevo" ItemsSource="{Binding}"></ComboBox>
+
+
+
+            <Button Grid.Row="1" Grid.Column="0" Click="CliclSaveKepzesek" Content="Mentés" Background="#2ecc71" Foreground="White" FontWeight="Heavy" ></Button>
+
+
+        </Grid>
+
+        <!-- Oktatók hozzáadás-->
+        <Grid x:Name="gAddOktato" Grid.Row="1" Visibility="Collapsed">
+            <Label Grid.Row="1" Content="Oktató" FontSize="30"></Label>
+            <Border BorderBrush="Black" Grid.Row="1" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-					</Grid.ColumnDefinitions>
-                    
-					<Label Grid.Row="0" Grid.Column="1" Content="Név:" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
-					<TextBox Grid.Row="0" Grid.Column="2" x:Name="tbName" VerticalAlignment="Center" ></TextBox>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-					<Label Grid.Row="1" Grid.Column="1" Content="Kezdés Dátuma:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0"></Label>
-					<Button Grid.Column="1" Grid.Row="1"  Click="ClickTodayStart" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" Content="Ma" Background="#3498db" Foreground="White"></Button>
-					<DatePicker Grid.Row="1" x:Name="tbDateStart" Grid.Column="2" VerticalAlignment="Center"></DatePicker>
-					
-					<Label Grid.Row="2" Grid.Column="1" Content="Befejezés Dátuma:" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,30,0"></Label>
-					<Button  Grid.Row="2" Grid.Column="1"   Click="ClickTodayEnd" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" Content="Ma" Background="#3498db" Foreground="White"></Button>
-					<DatePicker ToolTip="2025.04.09" Grid.Row="2" Grid.Column="2" x:Name="tbDateEnd" VerticalAlignment="Center" ></DatePicker>
+                    <Label Content="Név:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
+                    <TextBox Grid.Row="0" Grid.Column="2" x:Name="tbOktatoNev" VerticalAlignment="Center"></TextBox>
 
-					<Label Grid.Row="3" Grid.Column="1" Content="Hely:" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
-					<TextBox Grid.Row="3" ToolTip="2025.04.09" Grid.Column="2" x:Name="tbPlace" VerticalAlignment="Center" ></TextBox>
+                    <Label Content="Szakterület:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
+                    <TextBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" x:Name="tbOktatoSzakterulet"></TextBox>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                        <Label Grid.Row="2" Grid.Column="1" Content="Kepzesek:"></Label>
+                        <Button Grid.Column="1" Grid.Row="2" Click="ClickKivalasztottKepzesHozzaadasa" Content="Kiválasztott képzés hozzásadása" VerticalAlignment="Top" HorizontalAlignment="Center"></Button>
+                    </StackPanel>
+                    <ComboBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" x:Name="cbKepzesek" ItemsSource="{Binding}" ></ComboBox>
 
-					<Label Grid.Row="4" Grid.Column="2" Content="Hozáadott oktatók" VerticalAlignment="Top" HorizontalAlignment="Center"></Label>
-					<ComboBox Grid.Row="4" Grid.Column="2"  x:Name="cbHozzaadotOktatok"  VerticalAlignment="Bottom" ItemsSource="{Binding}" ></ComboBox>
-
-
-					<StackPanel Grid.Row="4" Grid.Column="1" Orientation="Horizontal">
-						<Label Content="Oktatók hozzá adása: " VerticalAlignment="Top"></Label>
-						<Button Click="ClickOktatoHozzaadasa" Content="Kiválasztott oktató hozzáadása" VerticalAlignment="Top"  ></Button>
-					</StackPanel>
-					<ComboBox Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" x:Name="cbOktatok" ItemsSource="{Binding}"></ComboBox>
-
-					<Label Grid.Row="5" Grid.Column="2" Content="Hozáadott résztvevők" VerticalAlignment="Top" HorizontalAlignment="Center"></Label>
-					<ComboBox Grid.Row="5" Grid.Column="2"  x:Name="cbHozzaadotResztvevok"  VerticalAlignment="Bottom" ItemsSource="{Binding}"></ComboBox>
-
-					<StackPanel Grid.Row="5" Grid.Column="1" Orientation="Horizontal">
-						<Label Content="Résztvevők hozzá adása: " VerticalAlignment="Top"></Label>
-						<Button Click="ClickResztvevoHozzaadasa" Content="Kiválasztott résztvevő hozzáadása" VerticalAlignment="Top"  ></Button>
-					</StackPanel>
-					<ComboBox Grid.Row="5" Grid.Column="1" VerticalAlignment="Bottom" x:Name="cbResztvevo" ItemsSource="{Binding}"></ComboBox>
-
-
-
-					<Button Grid.Row="1" Grid.Column="0" Click="CliclSaveKepzesek" Content="Mentés" Background="#2ecc71" Foreground="White" FontWeight="Heavy" ></Button>
-				</Grid>
-			</Border>
-
-            <!-- Oktatók hozzadása -->
-            <Label Grid.Row="1" Content="Oktató" FontSize="30"></Label>
-			<Border BorderBrush="Black" Grid.Row="1" BorderThickness="1">
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition/>
-						<RowDefinition/>
-						<RowDefinition/>
-					</Grid.RowDefinitions>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-						<ColumnDefinition/>
-					</Grid.ColumnDefinitions>
-
-					<Label Content="Név:" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
-					<TextBox Grid.Row="0" Grid.Column="2" x:Name="tbOktatoNev" VerticalAlignment="Center"></TextBox>
-
-					<Label Content="Szakterület:" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalContentAlignment="Right"></Label>
-					<TextBox Grid.Row="1" Grid.Column="2" VerticalAlignment="Center" x:Name="tbOktatoSzakterulet"></TextBox>
-					<StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
-						<Label Grid.Row="2" Grid.Column="1" Content="Kepzesek:"></Label>
-						<Button Grid.Column="1" Grid.Row="2" Click="ClickKivalasztottKepzesHozzaadasa" Content="Kiválasztott képzés hozzásadása" VerticalAlignment="Top" HorizontalAlignment="Center"></Button>
-					</StackPanel>
-					<ComboBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Bottom" x:Name="cbKepzesek" ItemsSource="{Binding}" ></ComboBox>
-	
-					<Label Grid.Row="2" Grid.Column="2" Content="Kiválasztott képzések:" ></Label>
-					<ComboBox IsReadOnly="True" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" x:Name="cbKivalasztottKepzes" ItemsSource="{Binding}" ></ComboBox>
+                    <Label Grid.Row="2" Grid.Column="2" Content="Kiválasztott képzések:" ></Label>
+                    <ComboBox IsReadOnly="True" Grid.Row="2" Grid.Column="2" VerticalAlignment="Bottom" x:Name="cbKivalasztottKepzes" ItemsSource="{Binding}" ></ComboBox>
 
                     <Button Grid.Row="1" Background="#2ecc71" Height="60" FontWeight="Heavy"  Foreground="White" Content="Mentés" Click="ClickSaveOktato" ></Button>
-				</Grid>
-			</Border>
+                </Grid>
+            </Border>
 
-            <!-- Résztvevők hozzadása -->
+        </Grid>
+
+        <!-- Résztvevők hozzadása -->
+        <Grid Grid.Row="1" Visibility="Collapsed" x:Name="gAddResztvevo">
             <Label Grid.Row="2" Content="Résztvevő" FontSize="30"></Label>
-			<Border Grid.Row="2" BorderBrush="Black" BorderThickness="1">
-				<Grid >
+        </Grid>
 
-				</Grid>
-			</Border>
-		</Grid>
+
         <!-- Megjelenítés ablak -->
-		<Grid Visibility="Hidden" x:Name="gVisualize" Grid.Row="1">
-			<DataGrid x:Name="dgMegjelen" IsReadOnly="True" DockPanel.Dock="Top" AutoGenerateColumns="False" ItemsSource="{Binding}">
-				<DataGrid.Columns>
-					<DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
-					<DataGridTextColumn Header="Képzés neve" Binding="{Binding Nev}"/>
-					<DataGridTextColumn Header="Kezdési dátum" Binding="{Binding KezdesDatuma}"/>
-					<DataGridTextColumn Header="Befejezési dátum" Binding="{Binding BefejezesDatuma}"/>
-					<DataGridTextColumn Header="Helyszín" Binding="{Binding Hely}"/>
-				</DataGrid.Columns>
-			</DataGrid>
-		</Grid>
-		<Grid Visibility="Hidden" x:Name="gEdit"  Grid.Row="1"></Grid>
+        <Grid Visibility="Collapsed" x:Name="gVisualize" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <DataGrid Grid.Column="0" x:Name="dgMegjelen" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Képzés neve" Binding="{Binding Nev}"/>
+                    <DataGridTextColumn Header="Kezdési dátum" Binding="{Binding KezdesDatuma}"/>
+                    <DataGridTextColumn Header="Befejezési dátum" Binding="{Binding BefejezesDatuma}"/>
+                    <DataGridTextColumn Header="Helyszín" Binding="{Binding Hely}"/>
+                    <DataGridTextColumn Header="Oktatók" Binding="{Binding OktatokLista}"/>
+                    <DataGridTextColumn Header="Résztvevők" Binding="{Binding ResztvevokLista}"/>
+                    
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid Grid.Column="1" x:Name="dgMgejelen2" IsReadOnly="True"  AutoGenerateColumns="False" ItemsSource="{Binding}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Oktató neve" Binding="{Binding Nev}"/>
+                    <DataGridTextColumn Header="Oktató Szakterülete" Binding="{Binding Szakterulet}"/>
+                    <DataGridTextColumn Header="Képzések" Binding="{Binding KepzesekLista}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <DataGrid Grid.Column="2" Name="dgMegjelenResztvevok" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Résztvevő neve" Binding="{Binding Nev}"/>
+                    <DataGridTextColumn Header="Résztvevő beosztása" Binding="{Binding Beosztas}"/>
+                    <DataGridTextColumn Header="Képzések" Binding="{Binding KepzesekLisita}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+        <Grid Visibility="Hidden" x:Name="gEdit"  Grid.Row="1"></Grid>
 
-	</Grid>
+    </Grid>
 
 </Window>

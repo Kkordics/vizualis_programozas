@@ -69,13 +69,7 @@ namespace Kepzes_Kezelo
 
 		}
 
-		private void cAdd(object sender, RoutedEventArgs e)
-		{
-			gAdd.Visibility = Visibility.Visible;
-			gVisualize.Visibility = Visibility.Collapsed;
-			gEdit.Visibility = Visibility.Collapsed;
-			FillLists();
-		}
+		
 
 		/// <summary>
 		/// Feltölti a Combo box-ok tartalmát az Add menünél
@@ -89,16 +83,19 @@ namespace Kepzes_Kezelo
 
 		private void cVisualize(object sender, RoutedEventArgs e)
 		{
-			gAdd.Visibility = Visibility.Collapsed;
+			
 			gVisualize.Visibility = Visibility.Visible;
 			gEdit.Visibility = Visibility.Collapsed;
             dgMegjelen.ItemsSource = tabla.Kepzesek.Include(p => p.Oktatok).Include(p => p.Resztvevoks).ToList();
-			
+			dgMgejelen2.ItemsSource = tabla.Oktatok.Include(p => p.Kepzesek).ToList();
+			dgMegjelenResztvevok.ItemsSource = tabla.Resztvevok.Include(p => p.Kepzeseks).ToList();
+
+
 		}
 
 		private void cEdit(object sender, RoutedEventArgs e)
 		{
-			gAdd.Visibility = Visibility.Collapsed;
+			//gAdd.Visibility = Visibility.Collapsed;
 			gVisualize.Visibility = Visibility.Collapsed;
 			gEdit.Visibility = Visibility.Visible;
 		}
@@ -197,5 +194,39 @@ namespace Kepzes_Kezelo
 				cbKivalasztottKepzes.SelectedIndex = 0;
 			}
 		}
+
+		private void cAddKepzes(object sender, RoutedEventArgs e)
+		{
+			gAddKepzes.Visibility = Visibility.Visible;
+			gAddOktato.Visibility = Visibility.Collapsed;
+			gAddResztvevo.Visibility = Visibility.Collapsed;
+
+			gVisualize.Visibility = Visibility.Collapsed;
+			gEdit.Visibility = Visibility.Collapsed;
+			FillLists();
+        }
+
+		private void cAddOktato(object sender, RoutedEventArgs e)
+		{
+			gAddKepzes.Visibility = Visibility.Collapsed;
+			gAddOktato.Visibility = Visibility.Visible;
+			gAddResztvevo.Visibility = Visibility.Collapsed;
+
+			gVisualize.Visibility = Visibility.Collapsed;
+			gEdit.Visibility = Visibility.Collapsed;
+			FillLists();
+		}
+
+		private void cAddResztvevo(object sender, RoutedEventArgs e)
+		{
+			gAddKepzes.Visibility = Visibility.Collapsed;
+			gAddOktato.Visibility = Visibility.Collapsed;
+			gAddResztvevo.Visibility = Visibility.Visible;
+
+			gVisualize.Visibility = Visibility.Collapsed;
+			gEdit.Visibility = Visibility.Collapsed;
+			FillLists();
+		}
+		
 	}
 }
