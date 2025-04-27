@@ -168,8 +168,8 @@ namespace Kepzes_Kezelo
 
 		private void ClickSaveOktato(object sender, RoutedEventArgs e)
 		{
-			if(tbOktatoNev.Text == "") { MessageBox.Show("Üres oktató név", "Huba", MessageBoxButton.OK); return; }
-			if (tbOktatoSzakterulet.Text == "") { MessageBox.Show("Üres oktató szakterület", "Huba", MessageBoxButton.OK); return; }
+			if(tbOktatoNev.Text == "") { MessageBox.Show("Üres oktató név", "Hiba", MessageBoxButton.OK); return; }
+			if (tbOktatoSzakterulet.Text == "") { MessageBox.Show("Üres oktató szakterület", "Hiba", MessageBoxButton.OK); return; }
 
 			List<Kepzes> kepzesek = tabla.Kepzesek.ToList().Where(x => cbKivalasztottKepzes.Items.Contains(x.Nev)).ToList();
 
@@ -227,6 +227,33 @@ namespace Kepzes_Kezelo
 			gEdit.Visibility = Visibility.Collapsed;
 			FillLists();
 		}
-		
-	}
+
+        private void ClickSaveResztvevo(object sender, RoutedEventArgs e)
+        {
+            if (tbResztvevoNev.Text == "") { MessageBox.Show("Üres résztvevő név", "Hiba", MessageBoxButton.OK); return; }
+            if (tbBeosztas.Text == "") { MessageBox.Show("Üres beosztás", "Hiba", MessageBoxButton.OK); return; }
+
+            List<Kepzes> kepzesek = tabla.Kepzesek.ToList().Where(x => cbKivalasztottKepzes2.Items.Contains(x.Nev)).ToList();
+
+            Resztvevo newResztvevo = new Resztvevo { Nev = tbResztvevoNev.Text, Beosztas = tbBeosztas.Text, Kepzeseks = kepzesek };
+
+            tabla.Resztvevok.Add(newResztvevo);
+            tabla.SaveChanges();
+
+            MessageBox.Show("Mentés sikeres");
+            FillLists();
+            tbResztvevoNev.Text = "";
+            tbBeosztas.Text = "";
+            cbKivalasztottKepzes2.ItemsSource = null;
+        }
+
+        private void ClickKivalasztottKepzesHozzaadasa2(object sender, RoutedEventArgs e)
+        {
+            if (cbKepzesek2.SelectedItem != null)
+            {
+                cbKivalasztottKepzes2.Items.Add(cbKepzesek2.SelectedItem.ToString());
+                cbKivalasztottKepzes2.SelectedIndex = 0;
+            }
+        }
+    }
 }
