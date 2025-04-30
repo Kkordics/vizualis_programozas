@@ -2,10 +2,10 @@
 Komolósi András: UA5ECL & Kordics Kristóf: ZE27GW
 
 Funkcionalitások:
- - [ ] Az összes adat megjelenítése
- - [ ] Keresés mind két egyed egy-egy tulajdonsága alapján külön-kölün űrlapon
+ - [x] Az összes adat megjelenítése
+ - [x] Keresés mind két egyed egy-egy tulajdonsága alapján külön-kölün űrlapon
  - [ ] Adatok módosítása külön-külön űrlapon
- - [ ] Új adatok felvétele egyedenként külön-külön űrlapo
+ - [x] Új adatok felvétele egyedenként külön-külön űrlapo
 
 Dokumentáció:
  - [ ] Relációs adatmodell vagy entitásmodell diagram formályában 
