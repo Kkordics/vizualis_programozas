@@ -34,7 +34,7 @@ namespace cnKepzesek
 
         public virtual IList<Kepzes> Kepzeseks { get; set; }
 
-        public string KepzesekLisita { get { return string.Join(", ", Kepzeseks.Select(x => x.Nev)); } }
+        public string KepzesekLista { get { return string.Join(", ", Kepzeseks.Select(x => x.Nev)); } }
 
         #region Extensibility Method Definitions
 

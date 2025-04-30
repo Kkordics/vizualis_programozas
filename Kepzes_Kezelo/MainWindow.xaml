@@ -11,6 +11,11 @@
             <RowDefinition Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
+        <Grid Grid.Row="1" x:Name="gHome">
+            
+            <Image Source="Background.png"  ></Image>
+        </Grid>
+        
         <Menu Grid.Row="0">
             <MenuItem Header="File">
                 <MenuItem Header="Exit"></MenuItem>
@@ -23,11 +28,15 @@
                 <MenuItem Click="cAddResztvevo" Header="Résztvevő"/>
             </MenuItem>
             <MenuItem Click="cVisualize" Header="Megjelenítés"></MenuItem>
-            <MenuItem Click="cEdit" Header="Szerkeztés"></MenuItem>
-            <MenuItem Header="Keresés">
-                <MenuItem Header="Kepzes"></MenuItem>
+            <MenuItem Click="cEdit" Header="Szerkeztés">
+                <MenuItem Header="Képzés"></MenuItem>
                 <MenuItem Header="Oktató"></MenuItem>
-                <MenuItem Header="Kepzés"></MenuItem>
+                <MenuItem Header="Resztvevő"></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Keresés">
+                <MenuItem Header="Kepzes" Click="cSearchKepzes"></MenuItem>
+                <MenuItem Header="Oktató" Click="cSearchOktato"></MenuItem>
+                <MenuItem Header="Résztvevő" Click="cSearchResztvevo"></MenuItem>
             </MenuItem>
         </Menu>
         <!-- Képzés hozzadása -->
@@ -202,7 +211,78 @@
             </DataGrid>
         </Grid>
         <Grid Visibility="Hidden" x:Name="gEdit"  Grid.Row="1"></Grid>
+        <!-- Képzés keresés -->
+        <Grid Grid.Row="1" x:Name="gSearchKepzes" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Képzés keresés"></Label>
+            
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBox Width="300" Grid.Row="1" TextChanged="kepzesKerese" />
+                <Label x:Name="KepzesTalalatok" Content="Találatok száma: 0"></Label>
+            </StackPanel>
+            <DataGrid Grid.Row="2" x:Name="dgKepzes" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Képzés neve" Binding="{Binding Nev}"/>
+                    <DataGridTextColumn Header="Kezdési dátum" Binding="{Binding KezdesDatuma}"/>
+                    <DataGridTextColumn Header="Befejezési dátum" Binding="{Binding BefejezesDatuma}"/>
+                    <DataGridTextColumn Header="Helyszín" Binding="{Binding Hely}"/>
+                    <DataGridTextColumn Header="Oktatók" Binding="{Binding OktatokLista}"/>
+                    <DataGridTextColumn Header="Résztvevők" Binding="{Binding ResztvevokLista}"/>
 
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid >
+
+        <!-- Oktato keresés -->
+        <Grid Grid.Row="1" x:Name="gSearchOktato" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Oktatók keresés"></Label>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBox Width="300" Grid.Row="1" TextChanged="oktatoKerese" />
+                <Label x:Name="OktatoTalalatok" Content="Találatok száma: 0"></Label>
+            </StackPanel>
+            <DataGrid Grid.Row="2" x:Name="dgOktato" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Oktató neve" Binding="{Binding Nev}"/>
+                    <DataGridTextColumn Header="Oktató Szakterülete" Binding="{Binding Szakterulet}"/>
+                    <DataGridTextColumn Header="Képzések" Binding="{Binding KepzesekLista}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+        <!-- Resztvevo keresés -->
+        <Grid Grid.Row="1" x:Name="gSearchResztvevo" Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Content="Oktatók keresés"></Label>
+
+            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                <TextBox Width="300" Grid.Row="1" TextChanged="resztvevoKerese" />
+                <Label x:Name="ResztvevoTalalatok" Content="Találatok száma: 0"></Label>
+            </StackPanel>
+            <DataGrid Grid.Row="2" x:Name="dgResztvevo" IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
+                    <DataGridTextColumn Header="Résztvevő neve" Binding="{Binding Nev}"/>
+                    <DataGridTextColumn Header="Résztvevő beosztása" Binding="{Binding Beosztas}"/>
+                    <DataGridTextColumn Header="Képzések" Binding="{Binding KepzesekLisita}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
     </Grid>
 
 </Window>
