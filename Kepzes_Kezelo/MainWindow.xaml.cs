@@ -43,6 +43,7 @@ namespace Kepzes_Kezelo
 			oldalak.Add(gHome);
 			oldalak.Add(gEditOktato);
 			oldalak.Add(gEditKepzes);
+			oldalak.Add(gEditResztvevo);
 		}
 
 		private void Initdb()
@@ -421,18 +422,24 @@ namespace Kepzes_Kezelo
 
 		private void editresztvevo(object sender, RoutedEventArgs e)
 		{
-
+			HideGrids(gEditResztvevo);
+			cbEditResztvevoID.ItemsSource = tabla.Resztvevok.Select(x => x.ID).ToList();
+			cbEditKepzesek.ItemsSource = tabla.Kepzesek.Select(x=> x.Nev).ToList();
 		}
 
 		private void KivalasztottOktato(object sender, SelectionChangedEventArgs e)
 		{
+			try
+			{
+				Oktato oktato = tabla.Oktatok.Include(x => x.Kepzesek).Where(x => x.ID == int.Parse(cbEditOktatoID.SelectedItem.ToString())).First();
+
+				tbEditOktatoNev.Text = oktato.Nev;
+				tbEditOktatoSzakterulet.Text = oktato.Szakterulet;
+
+				cbEditKivalasztottKepzes2.ItemsSource = oktato.Kepzesek.Select(x => x.Nev).ToList();
+			}
+			catch { }
 			
-			Oktato oktato = tabla.Oktatok.Include(x=> x.Kepzesek).Where(x => x.ID == int.Parse(cbEditOktatoID.SelectedItem.ToString())).First();
-
-			tbEditOktatoNev.Text = oktato.Nev;
-			tbEditOktatoSzakterulet.Text = oktato.Szakterulet;
-
-			cbEditKivalasztottKepzes2.ItemsSource = oktato.Kepzesek.Select(x=> x.Nev).ToList();
 			
 
 		}
@@ -518,20 +525,26 @@ namespace Kepzes_Kezelo
 
 		private void KivalsztottKepzes(object sender, SelectionChangedEventArgs e)
 		{
-			Kepzes kepzes = tabla.Kepzesek.Include(x=> x.Oktatok).Include(x=> x.Resztvevoks).Where(x => x.ID == int.Parse(cbEditKepzesID.SelectedItem.ToString())).First();
+			try
+			{
+				Kepzes kepzes = tabla.Kepzesek.Include(x => x.Oktatok).Include(x => x.Resztvevoks).Where(x => x.ID == int.Parse(cbEditKepzesID.SelectedItem.ToString())).First();
 
-			tbEditName.Text = kepzes.Nev;
-			tbEdiDateStart.Text = kepzes.KezdesDatuma.ToLongDateString();
-			tbEdiDateEnd.Text = kepzes.BefejezesDatuma.ToLongDateString();
-			tbEdiPlace.Text = kepzes.Hely;
+				tbEditName.Text = kepzes.Nev;
+				tbEdiDateStart.Text = kepzes.KezdesDatuma.ToLongDateString();
+				tbEdiDateEnd.Text = kepzes.BefejezesDatuma.ToLongDateString();
+				tbEdiPlace.Text = kepzes.Hely;
 
-			cbEditHozzaadotOktatok.ItemsSource = kepzes.Oktatok.Select(x => x.Nev).ToList();
-			cbEditHozzaadotOktatok.SelectedIndex = 0;
+				cbEditHozzaadotOktatok.ItemsSource = kepzes.Oktatok.Select(x => x.Nev).ToList();
+				cbEditHozzaadotOktatok.SelectedIndex = 0;
 
-			cbEditHozzaadotResztvevok.ItemsSource = kepzes.Resztvevoks.Select(x => x.Nev).ToList();
-			cbEditHozzaadotResztvevok.SelectedIndex = 0;
+				cbEditHozzaadotResztvevok.ItemsSource = kepzes.Resztvevoks.Select(x => x.Nev).ToList();
+				cbEditHozzaadotResztvevok.SelectedIndex = 0;
 
 
+			}
+			catch
+			{}
+			
 		}
 
 		private void EditTodayStart(object sender, RoutedEventArgs e)
@@ -568,5 +581,72 @@ namespace Kepzes_Kezelo
 
 			
 		}
+
+		private void EditRemoveOktato(object sender, RoutedEventArgs e)
+		{
+			var result = MessageBox.Show("Biztos törlölni kíványja az kiválasztott elemet?", "Warning", MessageBoxButton.OKCancel);
+			if (result == MessageBoxResult.OK)
+			{
+				tabla.Oktatok.Remove(tabla.Oktatok.Where(x => x.ID == int.Parse(cbEditOktatoID.Text)).First());
+				tabla.SaveChanges();
+
+				cbEditOktatoID.ItemsSource = tabla.Oktatok.Select(x => x.ID).ToList();
+				MessageBox.Show("Elem törlöve", "Info");
+			}
+		}
+
+		private void EditKivalasztottKepzesHozzaadasa(object sender, RoutedEventArgs e)
+		{
+			List<string> handler = (List<string>)cbEditKivalasztottKepzes.ItemsSource;
+			handler.Add(cbEditKepzesek.SelectedItem.ToString());
+			cbEditKivalasztottKepzes.ItemsSource = null;
+			cbEditKivalasztottKepzes.ItemsSource = handler;
+		}
+
+		private void EditSaveResztvevo(object sender, RoutedEventArgs e)
+		{
+			Resztvevo resztvevo = tabla.Resztvevok.Include(x => x.Kepzeseks).Where(x => x.ID == int.Parse(cbEditResztvevoID.SelectedItem.ToString())).First();
+			if (tbEditResztvevoNev.Text == "") { MessageBox.Show("Üres név mező", "Hiba", MessageBoxButton.OK); return; };
+			if (tbEditBeosztas.Text == "") { MessageBox.Show("Üres beosztás mező", "Hiba", MessageBoxButton.OK); return; };
+
+			resztvevo.Nev = tbEditResztvevoNev.Text;
+
+
+			resztvevo.Beosztas = tbEditBeosztas.Text;
+
+			resztvevo.Kepzeseks = tabla.Kepzesek.ToList().Where(x => cbEditKivalasztottKepzes.Items.Contains(x.Nev)).ToList();
+			
+			tabla.SaveChanges();
+			MessageBox.Show("Adatok mentva", "Info", MessageBoxButton.OK);
+
+		}
+
+		private void KivalasztottResztvevo(object sender, SelectionChangedEventArgs e)
+		{
+			try
+			{
+				Resztvevo resztvevo = tabla.Resztvevok.Include(x => x.Kepzeseks).Where(x=> x.ID == int.Parse(cbEditResztvevoID.SelectedItem.ToString())).First();
+				tbEditResztvevoNev.Text = resztvevo.Nev;
+				tbEditBeosztas.Text = resztvevo.Beosztas;
+				
+				cbEditKivalasztottKepzes.ItemsSource = resztvevo.Kepzeseks.Select(x => x.Nev).ToList();
+			}
+			catch { }
+		}
+
+		private void EditRemoveResztvevo(object sender, RoutedEventArgs e)
+		{
+			var result = MessageBox.Show("Biztos törlölni kíványja az kiválasztott elemet?", "Warning", MessageBoxButton.OKCancel);
+			if (result == MessageBoxResult.OK)
+			{
+				tabla.Resztvevok.Remove(tabla.Resztvevok.Where(x => x.ID == int.Parse(cbEditResztvevoID.Text)).First());
+				tabla.SaveChanges();
+
+				cbEditResztvevoID.ItemsSource = tabla.Resztvevok.Select(x => x.ID).ToList();
+				MessageBox.Show("Elem törlöve", "Info");
+			}
+		}
+
+		
 	}
 }

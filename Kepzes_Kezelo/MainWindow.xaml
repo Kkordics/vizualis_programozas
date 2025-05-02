@@ -11,7 +11,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="1" x:Name="gHome" Visibility="Collapsed">
+        <Grid Grid.Row="1" x:Name="gHome" Visibility="Visible">
             
             <Image Source="Background.png"  ></Image>
         </Grid>
@@ -206,7 +206,7 @@
                     <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                     <DataGridTextColumn Header="Résztvevő neve" Binding="{Binding Nev}"/>
                     <DataGridTextColumn Header="Résztvevő beosztása" Binding="{Binding Beosztas}"/>
-                    <DataGridTextColumn Header="Képzések" Binding="{Binding KepzesekLisita}"/>
+                    <DataGridTextColumn Header="Képzések" Binding="{Binding KepzesekLista}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -279,7 +279,7 @@
                     <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                     <DataGridTextColumn Header="Résztvevő neve" Binding="{Binding Nev}"/>
                     <DataGridTextColumn Header="Résztvevő beosztása" Binding="{Binding Beosztas}"/>
-                    <DataGridTextColumn Header="Képzések" Binding="{Binding KepzesekLisita}"/>
+                    <DataGridTextColumn Header="Képzések" Binding="{Binding KepzesekLista}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>
@@ -301,11 +301,13 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="300"/>
                         <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="1">
                         <Label Content="Válassza ki a szerkesztenin kívánt oktató ID-jét" ></Label>
                         <ComboBox x:Name="cbEditOktatoID" ItemsSource="{Binding}" SelectionChanged="KivalasztottOktato"></ComboBox>
                     </StackPanel>
+                    <Button Content="Törlés" Background="#e74c3c" Click="EditRemoveOktato" Grid.Column="3" Foreground="White"></Button>
                     
                     <Label Content="Név:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>
                     <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbEditOktatoNev" VerticalAlignment="Center" HorizontalAlignment="Left" Width="250"></TextBox>
@@ -331,8 +333,8 @@
             </Border>
 
         </Grid>
-
-        <Grid Grid.Row="1" x:Name="gEditKepzes">
+        <!-- Képzések szerkeztése -->
+        <Grid Grid.Row="1" x:Name="gEditKepzes" Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="80"/>
@@ -392,6 +394,49 @@
             <Button Grid.Row="5" Grid.Column="5" Click="EditSaveKepzesek" Content="Mentés" Background="#2ecc71" Foreground="White" FontWeight="Heavy" ></Button>
             <Button Grid.Column="3" Click="EditRemoveKepzes" Content="Törlés" Background="#e74c3c" Foreground="White"></Button>
 
+        </Grid>
+
+        <Grid Grid.Row="1" x:Name="gEditResztvevo" Visibility="Collapsed">
+            <Label Grid.Row="2" Content="Résztvevő" FontSize="30"></Label>
+            <Border BorderBrush="Black" Grid.Row="1" BorderThickness="1">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="300"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Content="Név:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>
+                    <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbEditResztvevoNev" VerticalAlignment="Center" HorizontalAlignment="Left" Width="250"></TextBox>
+                    <Button Grid.Column="2" Content="Törlés" Background="#e74c3c" Foreground="White" Click="EditRemoveResztvevo" ></Button>
+                    <StackPanel Grid.Column="1" Orientation="Vertical">
+                        <Label Content="Válassza ki a szerkeszteni kívánt Résztvevő id-jét"></Label>
+                        <ComboBox x:Name="cbEditResztvevoID" SelectionChanged="KivalasztottResztvevo" ItemsSource="{Binding}"></ComboBox>
+                    </StackPanel>
+                    
+                    <Label Content="Beosztás:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" HorizontalContentAlignment="Left"></Label>
+                    <TextBox Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="tbEditBeosztas" Width="250"></TextBox>
+                    <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Horizontal">
+                        <Label Grid.Row="3" Grid.Column="1" Content="Kepzesek:"></Label>
+                        <Button Grid.Column="1" Grid.Row="3" Click="EditKivalasztottKepzesHozzaadasa" Content="Kiválasztott képzés hozzásadása" VerticalAlignment="Top" HorizontalAlignment="Center"></Button>
+                    </StackPanel>
+                    <ComboBox Grid.Row="4" Grid.Column="0" VerticalAlignment="Bottom" x:Name="cbEditKepzesek" ItemsSource="{Binding}"  ></ComboBox>
+
+                    <Label Grid.Row="3" Grid.Column="1" Content="Kiválasztott képzések:" ></Label>
+                    <ComboBox IsReadOnly="True" Grid.Row="4" Grid.Column="1" VerticalAlignment="Bottom" x:Name="cbEditKivalasztottKepzes" ItemsSource="{Binding}" ></ComboBox>
+
+                    <Button Grid.Row="5" Grid.Column="0" Background="#2ecc71" Height="60" FontWeight="Heavy"  Foreground="White" Content="Mentés" Click="EditSaveResztvevo" ></Button>
+                    
+                </Grid>
+            </Border>
         </Grid>
     </Grid>
 
