@@ -284,7 +284,7 @@
             </DataGrid>
         </Grid>
 
-        <!-- OKtató Szerkeztése -->
+        <!-- Oktató Szerkeztése -->
         <Grid Grid.Row="1" x:Name="gEditOktato" Visibility="Collapsed">
             <Label Grid.Row="0" Content="Oktató" FontSize="30"></Label>
 
@@ -329,6 +329,68 @@
                     <Button Grid.Row="5" Grid.Column="0" Background="#2ecc71" Height="60" FontWeight="Heavy"  Foreground="White" Content="Mentés" Click="EditSaveOktato" ></Button>
                 </Grid>
             </Border>
+
+        </Grid>
+
+        <Grid Grid.Row="1" x:Name="gEditKepzes">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="80"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="35"/>
+                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="325"/>
+                <ColumnDefinition Width="250"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Content="Kepzés" FontSize="30"></Label>
+            <StackPanel Grid.Column="2" Orientation="Vertical">
+                <Label Content="Válassza ki a szerkezteni kíván Képzés id"></Label>
+                <ComboBox x:Name="cbEditKepzesID" SelectionChanged="KivalsztottKepzes"></ComboBox>
+            </StackPanel>
+            <Label Grid.Row="1" Grid.Column="0" Content="Név:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+            <TextBox Grid.Row="1" Grid.Column="2" x:Name="tbEditName" VerticalAlignment="Center"></TextBox>
+
+            <Label Grid.Row="2" Grid.Column="0" Content="Kezdés Dátuma:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,30,0"></Label>
+            <Button Grid.Column="1" Grid.Row="2"  Click="EditTodayStart" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,10,0" Content="Ma" Background="#3498db" Foreground="White"></Button>
+            <DatePicker Grid.Row="2" x:Name="tbEdiDateStart" Grid.Column="2" VerticalAlignment="Center"></DatePicker>
+
+            <Label Grid.Row="3" Grid.Column="0" Content="Befejezés Dátuma:" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,30,0"></Label>
+            <Button  Grid.Row="3" Grid.Column="1"   Click="EditTodayEnd" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,0,10,0" Content="Ma" Background="#3498db" Foreground="White"></Button>
+            <DatePicker ToolTip="2025.04.09" Grid.Row="3" Grid.Column="2" x:Name="tbEdiDateEnd" VerticalAlignment="Center" ></DatePicker>
+
+            <Label Grid.Row="4" Grid.Column="0" Content="Hely:" VerticalAlignment="Center" HorizontalAlignment="Left"></Label>
+            <TextBox Grid.Row="4" ToolTip="2025.04.09" Grid.Column="2" x:Name="tbEdiPlace" VerticalAlignment="Center" ></TextBox>
+
+            <Label Grid.Row="1" Grid.Column="4" Content="Hozáadott oktatók" VerticalAlignment="Top" HorizontalAlignment="Left"></Label>
+            <ComboBox Grid.Row="1" Grid.Column="5"  x:Name="cbEditHozzaadotOktatok"  VerticalAlignment="Bottom" ItemsSource="{Binding}" ></ComboBox>
+
+
+            <StackPanel Grid.Row="2" Grid.Column="4" Orientation="Horizontal">
+                <Label Content="Oktatók hozzá adása: " VerticalAlignment="Top"></Label>
+                <Button Click="EditOktatoHozzaadasa" Content="Kiválasztott oktató hozzáadása" VerticalAlignment="Top"  ></Button>
+            </StackPanel>
+            <ComboBox Grid.Row="1" Grid.Column="4" VerticalAlignment="Bottom"  x:Name="cbEditOktatok" ItemsSource="{Binding}"></ComboBox>
+
+            <Label Grid.Row="3" Grid.Column="4" Content="Hozáadott résztvevők" VerticalAlignment="Top" HorizontalAlignment="Left"></Label>
+            <ComboBox Grid.Row="3" Grid.Column="5"  x:Name="cbEditHozzaadotResztvevok"  VerticalAlignment="Bottom" ItemsSource="{Binding}"></ComboBox>
+
+            <StackPanel Grid.Row="4" Grid.Column="4" Orientation="Horizontal">
+                <Label Content="Résztvevők hozzá adása: " VerticalAlignment="Top"></Label>
+                <Button Click="EditResztvevoHozzaadasa" Content="Kiválasztott résztvevő hozzáadása" VerticalAlignment="Top" HorizontalAlignment="Right"  ></Button>
+            </StackPanel>
+            <ComboBox Grid.Row="3" Grid.Column="4" VerticalAlignment="Bottom" x:Name="cbEditResztvevo" ItemsSource="{Binding}"></ComboBox>
+
+
+
+            <Button Grid.Row="5" Grid.Column="5" Click="EditSaveKepzesek" Content="Mentés" Background="#2ecc71" Foreground="White" FontWeight="Heavy" ></Button>
+            <Button Grid.Column="3" Click="EditRemoveKepzes" Content="Törlés" Background="#e74c3c" Foreground="White"></Button>
 
         </Grid>
     </Grid>
