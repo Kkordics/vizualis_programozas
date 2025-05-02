@@ -41,6 +41,7 @@ namespace Kepzes_Kezelo
 			oldalak.Add(gSearchOktato);
 			oldalak.Add(gSearchResztvevo);
 			oldalak.Add(gHome);
+			oldalak.Add(gEditOktato);
 		}
 
 		private void Initdb()
@@ -107,13 +108,7 @@ namespace Kepzes_Kezelo
 
 		}
 
-		private void cEdit(object sender, RoutedEventArgs e)
-		{
-			//gAdd.Visibility = Visibility.Collapsed;
-			//gVisualize.Visibility = Visibility.Collapsed;
-			//gEdit.Visibility = Visibility.Visible;
-			HideGrids(gEdit);
-		}
+		
 
 		private void ClickTodayStart(object sender, RoutedEventArgs e)
 		{
@@ -403,6 +398,77 @@ namespace Kepzes_Kezelo
 				dgResztvevo.ItemsSource = eredmeny;
 				ResztvevoTalalatok.Content = $"Találatok száma: {eredmeny.Count}";
 			}
+		}
+
+		private void editKepzes(object sender, RoutedEventArgs e)
+		{
+			HideGrids(gEditOktato);
+			cbEditOktatoID.ItemsSource = tabla.Oktatok.Select(x=> x.ID).ToList();
+			cbEditKepzesek2.ItemsSource = tabla.Kepzesek.Select(x => x.Nev).ToList();
+		}
+
+		private void editOktato(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void editresztvevo(object sender, RoutedEventArgs e)
+		{
+
+		}
+
+		private void KivalasztottOktato(object sender, SelectionChangedEventArgs e)
+		{
+			
+			Oktato oktato = tabla.Oktatok.Include(x=> x.Kepzesek).Where(x => x.ID == int.Parse(cbEditOktatoID.SelectedItem.ToString())).First();
+
+			tbEditOktatoNev.Text = oktato.Nev;
+			tbEditOktatoSzakterulet.Text = oktato.Szakterulet;
+
+			cbEditKivalasztottKepzes2.ItemsSource = oktato.Kepzesek.Select(x=> x.Nev).ToList();
+			
+
+		}
+
+		private void editKivalasztottKepzesHozzaadasa2(object sender, RoutedEventArgs e)
+		{
+			
+			List<string> handler = (List<string>)cbEditKivalasztottKepzes2.ItemsSource;
+			
+			handler.Add(cbEditKepzesek2.SelectedItem.ToString());
+			cbEditKivalasztottKepzes2.ItemsSource = null;
+			cbEditKivalasztottKepzes2.ItemsSource = handler;
+		}
+
+		private void EditValszottKepzesTorles(object sender, RoutedEventArgs e)
+		{
+
+			List<string> handler = (List<string>)cbEditKivalasztottKepzes2.ItemsSource;
+
+			if (handler.Contains(cbEditKepzesek2.SelectedItem.ToString()))
+			{
+				handler.Remove(cbEditKepzesek2.SelectedItem.ToString());
+				
+			}
+			cbEditKivalasztottKepzes2.ItemsSource = null;
+			cbEditKivalasztottKepzes2.ItemsSource = handler;
+		}
+
+		private void EditSaveOktato(object sender, RoutedEventArgs e)
+		{
+
+
+			Oktato oktato = tabla.Oktatok.Include(x => x.Kepzesek).Where(x => x.ID == int.Parse(cbEditOktatoID.SelectedItem.ToString())).First();
+			if(oktato.Nev == "") { MessageBox.Show("Üres név mező","Hiba", MessageBoxButton.OK); return;  };
+			if (oktato.Szakterulet == "") { MessageBox.Show("Üres név mező", "Hiba", MessageBoxButton.OK); return; };
+			oktato.Nev = tbEditOktatoNev.Text;
+			oktato.Szakterulet=tbEditOktatoSzakterulet.Text;
+
+			
+			oktato.Kepzesek = tabla.Kepzesek.ToList().Where(x=> cbEditKivalasztottKepzes2.Items.Contains(x.Nev)).ToList();
+
+			tabla.SaveChanges();
+			MessageBox.Show("Adatok mentve", "Info", MessageBoxButton.OK);
 		}
 	}
 }
