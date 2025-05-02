@@ -4,7 +4,7 @@ Komolósi András: UA5ECL & Kordics Kristóf: ZE27GW
 Funkcionalitások:
  - [x] Az összes adat megjelenítése
  - [x] Keresés mind két egyed egy-egy tulajdonsága alapján külön-kölün űrlapon
- - [ ] Adatok módosítása külön-külön űrlapon
+ - [x] Adatok módosítása külön-külön űrlapon
  - [x] Új adatok felvétele egyedenként külön-külön űrlapo
 
 Dokumentáció:
